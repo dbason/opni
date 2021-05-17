@@ -1,0 +1,17 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: cron-job
+spec: # CronJob
+  schedule: "0 * * * *"
+  jobTemplate:
+    spec: # JOB
+      template:
+        spec: # Pod
+          containers:
+          - image: alpine
+            command: ["/bin/sh","-c"]
+            args: ["apk add curl && apk add coreutils && curl -XPOST https://admin:admin@opendistro-es-client-service.opni-system.svc.cluster.local:9200/logs/_doc/_delete_by_query --insecure -H 'Content-Type: application/json' -d ' {\"query\": {\"range\": { \"timestamp\": {\"lte\":\"now-1h\"  } }   } }'"]
+            name: logging-purger
+          restartPolicy: Never
+      backoffLimit: 2
