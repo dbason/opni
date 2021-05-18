@@ -1,7 +1,7 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: cron-job
+  name: es-management
 spec: # CronJob
   schedule: "0 * * * *"
   jobTemplate:
@@ -10,8 +10,17 @@ spec: # CronJob
         spec: # Pod
           containers:
           - image: alpine
+            env:
+            - name: ES_ENDPOINT
+              value: "https://opendistro-es-client-service.opni-system.svc.cluster.local:9200"
+            - name: ES_USER
+              value: "admin"
+            - name: ES_PASSWORD
+              value: "admin"
+            - name: TIME_INTERVAL
+              value: "1h"
             command: ["/bin/sh","-c"]
-            args: ["apk add curl && apk add coreutils && curl -XPOST https://admin:admin@opendistro-es-client-service.opni-system.svc.cluster.local:9200/logs/_doc/_delete_by_query --insecure -H 'Content-Type: application/json' -d ' {\"query\": {\"range\": { \"timestamp\": {\"lte\":\"now-1h\"  } }   } }'"]
-            name: logging-purger
-          restartPolicy: Never
+            args: ["apk add curl && apk add coreutils && curl -XPOST $ES_ENDPOINT/logs/_doc/_delete_by_query -u $ES_USER:$ES_PASSWORD --insecure -H 'Content-Type: application/json' -d '{\"query\":{\"range\":{\"timestamp\":{\"lte\":\"now-3d\"}}}}'"]
+            name: es-management
+          restartPolicy: OnFailure
       backoffLimit: 2
