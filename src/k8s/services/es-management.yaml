@@ -17,8 +17,6 @@ spec: # CronJob
               value: "admin"
             - name: ES_PASSWORD
               value: "admin"
-            - name: TIME_INTERVAL
-              value: "1h"
             command: ["/bin/sh","-c"]
             args: ["apk add curl && apk add coreutils && curl -XPOST $ES_ENDPOINT/logs/_doc/_delete_by_query -u $ES_USER:$ES_PASSWORD --insecure -H 'Content-Type: application/json' -d '{\"query\":{\"range\":{\"timestamp\":{\"lte\":\"now-3d\"}}}}'"]
             name: es-management
