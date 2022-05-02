@@ -27,7 +27,7 @@ deploy/custom/opni-monitoring.yaml
 /report.json
 /cover.out
 /cover.profile
-**/*.tgz
+
 
 docs/public/
 docs/resources/

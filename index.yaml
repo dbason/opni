@@ -1,0 +1,47 @@
+apiVersion: v1
+entries:
+  opni:
+  - annotations:
+      atalog.cattle.io/auto-install: opni-crd=match
+      catalog.cattle.io/display-name: Opni
+      catalog.cattle.io/os: linux
+      catalog.rancher.io/namespace: opni-system
+      catalog.rancher.io/release-name: opni
+    apiVersion: v2
+    appVersion: 0.4.0
+    created: "2022-05-03T10:41:39.1100629+12:00"
+    description: Multi-cluster Monitoring and Logging System
+    digest: debbe813cb5a79ab4be6f24214640e32c58357d866bb4903143f5a26d9c0d045
+    icon: https://raw.githubusercontent.com/rancher/opni-docs/main/docs/assets/icon-opni.svg
+    keywords:
+    - opni
+    - monitoring
+    - logging
+    - rancher
+    - observability
+    kubeVersion: '>=1.22.0'
+    maintainers:
+    - email: joe.kralicky@suse.com
+      name: Joe Kralicky
+    - email: dan.bason@suse.com
+      name: Dan Bason
+    name: opni
+    type: application
+    urls:
+    - assets/opni/opni-0.4.1.tgz
+    version: 0.4.1
+  opni-crd:
+  - annotations:
+      catalog.cattle.io/hidden: "true"
+      catalog.cattle.io/namespace: opni-system
+      catalog.cattle.io/release-name: opni-crd
+    apiVersion: v1
+    created: "2022-05-03T10:41:39.115958+12:00"
+    description: Installs the CRDs for Opni.
+    digest: bfb7a77d947e731a1806f5f8a1a882a2df5477fdd6352dc73b7e711283395a23
+    name: opni-crd
+    type: application
+    urls:
+    - assets/opni-crd/opni-crd-0.4.1.tgz
+    version: 0.4.1
+generated: "2022-05-03T10:41:39.1094119+12:00"
